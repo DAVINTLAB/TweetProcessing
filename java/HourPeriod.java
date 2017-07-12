@@ -13,7 +13,6 @@ public class HourPeriod {
 
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-///avoid geral thu may 11 11 
 		String target = "Thu May 11 10"; //inicial
 		String avoid = "Thu May 11 11"; //final
 
