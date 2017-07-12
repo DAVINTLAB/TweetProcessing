@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,19 +5,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class HourPeriod {
+public class HourPeriod { //writes tweets from target hour to any other hour
 	public static void main(String[]args) throws IOException{
-		File inputFile = new File("C:\\Users\\eduardo\\Music\\JM\\Coletas\\Lula vs Moro\\MERGE_dias10e11.txt");
-		File tempFile = new File ("C:\\Users\\eduardo\\Music\\JM\\Coletas\\Lula vs Moro\\c3 graph content\\hour23.txt"); //VAI BRASA!
+		File inputFile = new File("C:\\Users\\...\\input.txt");
+		File tempFile = new File ("C:\\Users\\...\\output.txt"); 
 
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-		String target = "Thu May 11 10"; //inicial
-		String avoid = "Thu May 11 11"; //final
+		String target = "insert target string";
+		String avoid = "insert final string";
 
 		String currentLine;
 
-		while((currentLine = reader.readLine()) != null) { //enquanto houver mais uma linha
+		while((currentLine = reader.readLine()) != null) {
 		    // trim newline when comparing with lineToRemove
 		    if(currentLine.contains(target)){
 		    	while((currentLine = reader.readLine()) != null){ 
@@ -31,7 +30,7 @@ public class HourPeriod {
 		    	break; //outer break
 		    } 
 		}
-		writer.close(); 					//por algum motivo a formatação do arquivo fica uma zona, mas acho que tá tudo certo
+		writer.close();
 		reader.close(); 
 	}
 }
