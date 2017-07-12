@@ -4,21 +4,22 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class LineCounter {
+public class LineCounter{ //counts how many lines mention some string
 	public static void main(String[]args) throws IOException{
-		File jaggi = new File("C:\\Users\\eduardo\\Desktop\\JM\\sigh2.txt");
+		File input = new File("C:\\Users\\...\\input.txt");
 
-		BufferedReader readerJ = new BufferedReader(new FileReader(jaggi));
+		BufferedReader reader = new BufferedReader(new FileReader(input));
 
 		String currentLine;
-		int countJ = 0;
-		String subs = "く";
+		int count = 0;
+		String subs = "insert some string";
 		
 		while((currentLine = readerJ.readLine()) != null) { //enquanto houver mais uma linha em Jaggi
-		    if(currentLine.contains(subs)){countJ++;}
-		} readerJ.close();
+		    if(currentLine.contains(subs)){count++;}
+		} 
+		reader.close();
 		
-		System.out.print("Jaggi: " + countJ );
+		System.out.print("Found: " + count);
 		
 	}
 }
