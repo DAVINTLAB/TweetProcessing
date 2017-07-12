@@ -14,7 +14,7 @@ public class LineCounter{ //counts how many lines mention some string
 		int count = 0;
 		String subs = "insert some string";
 		
-		while((currentLine = reader.readLine()) != null) { //enquanto houver mais uma linha em Jaggi
+		while((currentLine = reader.readLine()) != null) {
 		    if(currentLine.contains(subs)){count++;}
 		} 
 		reader.close();
