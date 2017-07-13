@@ -1,0 +1,50 @@
+
+div.fixed1 {
+    position: relative;
+    bottom: 300;
+    left: 0;
+    width: 350px;
+    border: 2px solid #73AD21;
+}
+
+h2{
+    padding-left: 40px;
+    font-family: sans-serif;
+}
+
+hta{ /*hashtags coluna a*/ 
+    padding-left: 40px;
+    font-family: sans-serif;
+    line-height: 150%;
+    font-size: 16px;
+    color: #1F77B4;
+}
+
+htb{ /*hashtags coluna b*/
+    padding-left: 40px;
+    font-family: sans-serif;
+    line-height: 150%;
+    font-size: 16px;
+    color: #FF7F0E;
+}
+
+rta{
+    padding-left: 40px;
+    font-family: sans-serif;
+    line-height: 150%;
+    font-size: 16px;
+    color: #1F77B4;    
+}
+
+rtb{
+    padding-left: 40px;
+    font-family: sans-serif;
+    line-height: 150%;
+    font-size: 16px;
+    color: #FF7F0E;
+}
+
+#chart{
+    width: 80%;
+    float: right;
+}
