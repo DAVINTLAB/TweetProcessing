@@ -1,4 +1,4 @@
-package Contador;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,7 +24,6 @@ public class App {
 	public static void main(String args[]){		
 		long tempo = System.currentTimeMillis();
 		HashMap<String, Palavra> palavras = new HashMap<String, Palavra>();
-				
 		System.out.println("Lendo arquivo \"" + ARQUIVO_A_SER_LIDO + "\"...");
 		try(BufferedReader in = new BufferedReader(new InputStreamReader( new FileInputStream(ARQUIVO_A_SER_LIDO), ENCODING));
 			BufferedWriter out = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(ARQUIVO_A_SER_LIDO+"_processado.txt"), ENCODING))){
@@ -34,7 +33,7 @@ public class App {
 				String linha = limpaLinhas(in.readLine());
 				String[] tokensNaLinha = linha.split("\\s+");
 				for(String token: tokensNaLinha){
-					if(token.equals("")) continue; //TODO Descobrir onde essas palavras vazias estão sendo geradas - ou só deixar assim mesmo, talvez seja melhor
+					if(token.equals("")) continue; 
 					Palavra palavra;
 					if(palavras.containsKey(token)) palavra = palavras.get(token);
 					else palavra = new Palavra(token);
@@ -64,6 +63,8 @@ public class App {
 		}
 		
 		System.out.println("Tempo de execução: " + (System.currentTimeMillis() - tempo) + "ms");
+		
+		
 		
 	}
 	

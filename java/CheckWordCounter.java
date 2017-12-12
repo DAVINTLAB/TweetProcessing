@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WordCounter {
+public class CheckWordCounter {
 	public static void main(String[]args) throws IOException{
 		File inputFile = new File("C:\\Users\\eduardo\\Desktop\\JM\\jaggi.txt");
 		File outputFile = new File("C:\\Users\\eduardo\\Desktop\\JM\\israel.txt");

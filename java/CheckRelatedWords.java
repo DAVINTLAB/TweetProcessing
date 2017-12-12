@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class RelatedWords { //builds lines to form bubble graphs.. still TBD
+public class CheckRelatedWords { //builds lines to form bubble graphs.. still TBD
 
    public static void main(String args[])  throws IOException{
 		

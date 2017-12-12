@@ -1,4 +1,4 @@
-package Contador;
+
 
 public class Palavra implements Comparable<Palavra> {
 	public String palavra;
