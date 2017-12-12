@@ -1,4 +1,4 @@
-package contagem;
+package Contador;
 
 import java.util.Comparator;
 

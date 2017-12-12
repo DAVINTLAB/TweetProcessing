@@ -1,4 +1,4 @@
-package contagem;
+package Contador;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
