@@ -15,7 +15,6 @@ import java.util.Scanner;
 import java.io.File;
 
 public class App {
-	
 	//variaveis de processamento
 	private static String ENCODING = "UTF-8";  //ISO-8859-1 ou UTF-8
 	private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\testing\\inicial.txt";
