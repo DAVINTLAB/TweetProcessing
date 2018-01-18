@@ -6,12 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Remover {
-	public static void main(String[]args) throws IOException{
-		File inputFile = new File("C:\\Users\\...\\processed_input.txt");
-		File tempFile = new File("C:\\Users\\...\\output.txt");
-
+	
+	File inputFile;
+	File outputFile;
+	
+	public Remover(File inFile) throws IOException{
+		inputFile = inFile;
+		String pathOut = inFile.getPath() + "_PALAVRAS.txt";
+		outputFile = new File(pathOut);
+	}
+	
+	public void pegaPalavras() throws IOException{
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-		BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
 		String currentLine;
 
@@ -23,6 +30,5 @@ public class Remover {
 		}
 		writer.close(); 
 		reader.close(); 
-		boolean successful = tempFile.renameTo(inputFile);
 	}
 }

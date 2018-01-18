@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -13,15 +11,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Scanner;
+import java.io.File;
 
 public class App {
+	
+	//variaveis de processamento
 	private static String ENCODING = "UTF-8";  //ISO-8859-1 ou UTF-8
-	private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\Vinícius\\Palavras.txt";
+	private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\testing\\inicial.txt";
 	private static boolean PRESERVAR_HASHTAGS = true;
 	private static Integer NUMERO_DE_PALAVRAS = 600;
 	private static boolean ORDEM_ASCENDENTE = false;
 
-	public static void main(String args[]){		
+	public static void main(String args[]) throws IOException{		
+		
 		long tempo = System.currentTimeMillis();
 		HashMap<String, Palavra> palavras = new HashMap<String, Palavra>();
 		System.out.println("Lendo arquivo \"" + ARQUIVO_A_SER_LIDO + "\"...");
@@ -53,19 +56,61 @@ public class App {
 				if(NUMERO_DE_PALAVRAS == 0) break;
 				out.write(palavra.toString() + "\r\n");
 				NUMERO_DE_PALAVRAS--;
-			}
-			
-			System.out.println(" completa.\nProcesso concluído com sucesso.");		
+			}		
 			
 		} catch (IOException e) {
 			System.out.println("Deu problema, que pena :<");
 			e.printStackTrace();
 		}
-		
+		System.out.println(" completa. Processo concluído com sucesso.\nEstá disponível o arquivo único com a contagem de PALAVRAS, HASHTAGS e PERFIS");
 		System.out.println("Tempo de execução: " + (System.currentTimeMillis() - tempo) + "ms");
 		
-		
-		
+
+		//</PROCESSING>
+		//<REFINING>
+
+		Scanner in = new Scanner(System.in);
+		System.out.println("\nDeseja separar as PALAVRAS, HASHTAGS e PERFIS em três arquivos distintos? S/N");
+		String ans = in.next();
+		if(ans.toLowerCase().charAt(0) == 's'){
+			System.out.println("Efetuando a separação...");
+			
+			//PALAVRAS --> Remover.java
+			File wordsInputFile = new File(ARQUIVO_A_SER_LIDO+"_processado.txt");
+			Remover wordsCOUNT = new Remover(wordsInputFile);
+			wordsCOUNT.pegaPalavras();
+			
+			//HASHTAGS --> Selector.java (#)
+			File hashtagsInputFile = new File(ARQUIVO_A_SER_LIDO+"_processado.txt");
+			Selector hashtagsCOUNT = new Selector(hashtagsInputFile, "#");
+			hashtagsCOUNT.select();
+			
+			//PERFIS --> Selector.java (@)
+			File profilesInputFile = new File(ARQUIVO_A_SER_LIDO+"_processado.txt");
+			Selector profilesCOUNT = new Selector(profilesInputFile, "@");
+			profilesCOUNT.select();
+			System.out.println("Separação completa.\n");
+			
+			System.out.println("Deseja formatar esses arquivos de palavras, hashtags e perfis no formato necessário\n"
+					+ "para gerar tag clouds (ou outras visualizacoes) no Tableau (ou em outros programas)? S/N");
+			ans = in.next();
+			System.out.println("Fazendo a separação de palavras, hashtags e perfis...");
+			
+			//IMPRIMINDO PALAVRAS
+			Repeater wordsREP = new Repeater(wordsCOUNT.outputFile); //entrada para repetir palavras
+			wordsREP.repeat();
+
+			//IMPRIMINDO HASHTAGS
+			Repeater hashtagsREP = new Repeater(hashtagsCOUNT.outputFile); //entrada para repetir hashtags
+			hashtagsREP.repeat();
+			
+			//IMPRIMINDO PERFIS
+			Repeater profilesREP = new Repeater(profilesCOUNT.outputFile); //entrada para repetir perfis
+			profilesREP.repeat();
+			
+			System.out.println("Repetições completas.\n");
+		}
+		in.close();
 	}
 	
 	public static String limpaLinhas(String linha){
@@ -83,7 +128,7 @@ public class App {
 		return Normalizer.normalize(linha, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 	}
 
-	private static String espaceiaHashtags(String linha) { // Necessário pois algumas pessoas escrevem as hashtags juntas. e.g.: #blizzard#Overwatch
+	private static String espaceiaHashtags(String linha) {
 		Pattern p;
 		if(PRESERVAR_HASHTAGS) p = Pattern.compile("(#[\\w\\d]+)");
 		else p = Pattern.compile("([\\w\\d]+)");
