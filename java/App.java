@@ -23,8 +23,47 @@ public class App {
 	private static boolean ORDEM_ASCENDENTE = false;
 
 	public static void main(String args[]) throws IOException{		
-		processa();
-		refina();
+		Scanner in = new Scanner(System.in);
+		System.out.println("Só para garantir:\n"
+				+ "Esse "+ ARQUIVO_A_SER_LIDO +" é o caminho correto? S/N");
+		String ans = in.next();
+		if(ans.toLowerCase().charAt(0) == 's'){
+			menu();
+		} else {
+			System.out.println("Corrija o caminho na constante e execute o programa de novo :)");
+		}
+		in.close();
+	}
+	
+	public static void menu() throws IOException{
+		Scanner in = new Scanner(System.in);
+		int op = 0;
+		System.out.println("O que você deseja fazer com o arquivo de tweets extraídos do banco de dados?\n"
+				+ "1) Gerar inputs para o Gráfico Interativo (c3.js);\n"
+				+ "2) Processar/refinar os dados para usá-los no Tableau ou outros programas.\n"
+				+ "Entre com a sua opção: ");
+		op = in.nextInt();
+		switch(op){
+			case 1: 
+				System.out.println("Para isso, cada tweet no arquivo deve estar disposto da seguinte forma: "
+						+ "created_at_datetime, screen_name, text\n"
+						+ "ex: \"2017-09-07 10:21:54\"\"bbcbrasil\"\"O que daria para bancar com dinheiro"
+						+ " atribuído a #Geddel? https://t.co/ZTP9556fcD https://t.co/jTjBPMB3eB\"\n\n"
+						+ "Os tweets estão armazenados dessa forma? S/N");
+				String ans = in.next();
+				if(ans.toLowerCase().charAt(0) == 's'){
+					geraInputs();	
+				} else {
+					System.out.println("Exporte outro arquivo de tweets nesse formato e execute o programa de novo :)");
+				}
+				break;
+			case 2: 
+				processa();
+				refina();
+				break;
+		}
+		
+		in.close();
 	}
 	
 	public static void processa(){
@@ -97,23 +136,30 @@ public class App {
 			System.out.println("Deseja formatar esses arquivos de palavras, hashtags e perfis no formato necessário\n"
 					+ "para gerar tag clouds (ou outras visualizacoes) no Tableau (ou em outros programas)? S/N");
 			ans = in.next();
-			System.out.println("Fazendo a separação de palavras, hashtags e perfis...");
-			
-			//IMPRIMINDO PALAVRAS
-			Repeater wordsREP = new Repeater(wordsCOUNT.outputFile); //entrada para repetir palavras
-			wordsREP.repeat();
-
-			//IMPRIMINDO HASHTAGS
-			Repeater hashtagsREP = new Repeater(hashtagsCOUNT.outputFile); //entrada para repetir hashtags
-			hashtagsREP.repeat();
-			
-			//IMPRIMINDO PERFIS
-			Repeater profilesREP = new Repeater(profilesCOUNT.outputFile); //entrada para repetir perfis
-			profilesREP.repeat();
-			
-			System.out.println("Repetições completas.\n");
+			if(ans.toLowerCase().charAt(0) == 's'){
+				System.out.println("Fazendo a separação de palavras, hashtags e perfis...");
+				
+				//IMPRIMINDO PALAVRAS
+				Repeater wordsREP = new Repeater(wordsCOUNT.outputFile); //entrada para repetir palavras
+				wordsREP.repeat();
+	
+				//IMPRIMINDO HASHTAGS
+				Repeater hashtagsREP = new Repeater(hashtagsCOUNT.outputFile); //entrada para repetir hashtags
+				hashtagsREP.repeat();
+				
+				//IMPRIMINDO PERFIS
+				Repeater profilesREP = new Repeater(profilesCOUNT.outputFile); //entrada para repetir perfis
+				profilesREP.repeat();
+				
+				System.out.println("Repetições completas.\n");
+			}
 		}
+		System.out.println("Confira os novos arquivos na pasta informada.");
 		in.close();
+	}
+	
+	public static void geraInputs(){
+		
 	}
 	
 	public static String limpaLinhas(String linha){
