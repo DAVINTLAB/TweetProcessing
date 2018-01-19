@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.io.File;
 
 public class App {
-	//variaveis de processamento
+	
 	private static String ENCODING = "UTF-8";  //ISO-8859-1 ou UTF-8
 	private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\testing\\inicial.txt";
 	private static boolean PRESERVAR_HASHTAGS = true;
@@ -23,14 +23,19 @@ public class App {
 	private static boolean ORDEM_ASCENDENTE = false;
 
 	public static void main(String args[]) throws IOException{		
-		
+		processa();
+		refina();
+	}
+	
+	public static void processa(){
+
 		long tempo = System.currentTimeMillis();
 		HashMap<String, Palavra> palavras = new HashMap<String, Palavra>();
 		System.out.println("Lendo arquivo \"" + ARQUIVO_A_SER_LIDO + "\"...");
 		try(BufferedReader in = new BufferedReader(new InputStreamReader( new FileInputStream(ARQUIVO_A_SER_LIDO), ENCODING));
 			BufferedWriter out = new BufferedWriter(new OutputStreamWriter( new FileOutputStream(ARQUIVO_A_SER_LIDO+"_processado.txt"), ENCODING))){
 			
-			System.out.print("\tLimpeza de arquivo e contagem de palavras...");
+			System.out.print("- Limpeza de arquivo e contagem de palavras...");
 			while(in.ready()){
 				String linha = limpaLinhas(in.readLine());
 				String[] tokensNaLinha = linha.split("\\s+");
@@ -44,12 +49,12 @@ public class App {
 				}	
 			}
 			
-			System.out.print(" completas.\nLeitura completa.\nOrganização de linhas...");
+			System.out.print(" completa.\n- Leitura completa.\n- Organização de linhas...");
 			
 			ArrayList<Palavra> palavrasOrdenadas = new ArrayList<Palavra>(palavras.values());
 			Collections.sort(palavrasOrdenadas, new PalavraComparator(ORDEM_ASCENDENTE));
 			
-			System.out.print(" completa.\nEscrita de arquivo...");
+			System.out.print(" completa.\n- Escrita de arquivo...");
 			
 			for(Palavra palavra: palavrasOrdenadas){
 				if(NUMERO_DE_PALAVRAS == 0) break;
@@ -61,13 +66,12 @@ public class App {
 			System.out.println("Deu problema, que pena :<");
 			e.printStackTrace();
 		}
-		System.out.println(" completa. Processo concluído com sucesso.\nEstá disponível o arquivo único com a contagem de PALAVRAS, HASHTAGS e PERFIS");
-		System.out.println("Tempo de execução: " + (System.currentTimeMillis() - tempo) + "ms");
 		
-
-		//</PROCESSING>
-		//<REFINING>
-
+		System.out.println(" completa. \nTempo de execução: " + (System.currentTimeMillis() - tempo) + "ms");
+		System.out.println("\n[Processo concluído com sucesso]\n\nEstá disponível o arquivo único com a contagem de PALAVRAS, HASHTAGS e PERFIS");
+	}
+	
+	public static void refina() throws IOException{
 		Scanner in = new Scanner(System.in);
 		System.out.println("\nDeseja separar as PALAVRAS, HASHTAGS e PERFIS em três arquivos distintos? S/N");
 		String ans = in.next();
