@@ -17,12 +17,15 @@ import java.io.File;
 public class App {
 	
 	private static String ENCODING = "UTF-8";  //ISO-8859-1 ou UTF-8
-	private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\testing\\inicial.txt";
+	//private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\testing\\inicial.txt";
+	//se for usado em Linux:
+	private static String ARQUIVO_A_SER_LIDO = "//home//jmfantin//Desktop//testing//fabric.txt";
 	private static boolean PRESERVAR_HASHTAGS = true;
 	private static Integer NUMERO_DE_PALAVRAS = 600;
 	private static boolean ORDEM_ASCENDENTE = false;
 
 	public static void main(String args[]) throws IOException{		
+
 		Scanner in = new Scanner(System.in);
 		System.out.println("Só para garantir:\n"
 				+ "Esse "+ ARQUIVO_A_SER_LIDO +" é o caminho correto? S/N");
@@ -46,9 +49,9 @@ public class App {
 		switch(op){
 			case 1: 
 				System.out.println("Para isso, cada tweet no arquivo deve estar disposto da seguinte forma: "
-						+ "created_at_datetime, screen_name, text\n"
-						+ "ex: \"2017-09-07 10:21:54\"\"bbcbrasil\"\"O que daria para bancar com dinheiro"
-						+ " atribuído a #Geddel? https://t.co/ZTP9556fcD https://t.co/jTjBPMB3eB\"\n\n"
+						+ "created_at_datetime, text\n"
+						+ "ex: ^|2017-09-07 10:21:54^|^|O que daria para bancar com dinheiro"
+						+ " atribuído a #Geddel? https://t.co/ZTP9556fcD https://t.co/jTjBPMB3eB^|\n\n"
 						+ "Os tweets estão armazenados dessa forma? S/N");
 				String ans = in.next();
 				if(ans.toLowerCase().charAt(0) == 's'){
@@ -158,8 +161,11 @@ public class App {
 		in.close();
 	}
 	
-	public static void geraInputs(){
-		
+	public static void geraInputs() throws IOException{
+		File inFile = new File(ARQUIVO_A_SER_LIDO);
+		GeradorC3 graphBuilder = new GeradorC3(inFile); 
+		graphBuilder.rankingTweets();
+		graphBuilder.rankingPerfis();
 	}
 	
 	public static String limpaLinhas(String linha){
