@@ -166,6 +166,7 @@ public class App {
 		GeradorC3 graphBuilder = new GeradorC3(inFile); 
 		graphBuilder.rankingTweets();
 		graphBuilder.rankingPerfis();
+		graphBuilder.rankingHashtags();
 	}
 	
 	public static String limpaLinhas(String linha){

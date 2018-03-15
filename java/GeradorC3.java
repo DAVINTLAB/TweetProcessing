@@ -86,8 +86,10 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 		ArrayList<TweetKey> array = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		String linhaAtual;
-		while((linhaAtual = reader.readLine()) != null) { //enquanto houver mais uma linha
-			if(linhaAtual.contains("@") && linhaAtual.length() > 6 && linhaAtual.substring(0,5).equals("|^201")){
+		while((linhaAtual = reader.readLine()) != null) { //enquanto houver mais uma linha			
+			while(linhaAtual.contains("@") && linhaAtual.length() > 6 && linhaAtual.substring(0,5).equals("|^201")){
+				int target = linhaAtual.lastIndexOf("@");
+				
 				Integer hora = Integer.parseInt(linhaAtual.substring(13,15));
 				//builda o perfil e, no início, é só um '@'
 				String found = linhaAtual.substring(linhaAtual.lastIndexOf("@"));
@@ -97,6 +99,7 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 					found = linhaAtual.substring(linhaAtual.lastIndexOf("@"), linhaAtual.lastIndexOf("@") + cont);
 					cont++;
 				}
+				linhaAtual = linhaAtual.substring(0, target) + linhaAtual.substring(target+1, linhaAtual.length());
 				//corte de potenciais ' ' ou '|' (últimos caracteres)
 				found = found.substring(0, found.length()-1);
 				//System.out.println(found);
@@ -138,13 +141,19 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 		}
 		reader.close();
 	}
-
+	
+	/** 
+	 * Monta o Hash de hashtags mais usadas enquanto lê o arquivo de tweets (created_at_datetime:text)
+	 * @throws IOException
+	 */ //praticamente igual ao rankingPerfis()
 	public void rankingHashtags() throws IOException{
 		ArrayList<TweetKey> array = new ArrayList<>();
 		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		String linhaAtual;
 		while((linhaAtual = reader.readLine()) != null) { //enquanto houver mais uma linha
-			if(linhaAtual.contains("#") && linhaAtual.length() > 6 && linhaAtual.substring(0,5).equals("|^201")){
+			while(linhaAtual.contains("#") && linhaAtual.length() > 6 && linhaAtual.substring(0,5).equals("|^201")){
+				int target = linhaAtual.lastIndexOf("#");
+				
 				Integer hora = Integer.parseInt(linhaAtual.substring(13,15));
 				//builda o perfil e, no início, é só um '@'
 				String found = linhaAtual.substring(linhaAtual.lastIndexOf("#"));
@@ -154,6 +163,7 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 					found = linhaAtual.substring(linhaAtual.lastIndexOf("#"), linhaAtual.lastIndexOf("#") + cont);
 					cont++;
 				}
+				linhaAtual = linhaAtual.substring(0, target) + linhaAtual.substring(target+1, linhaAtual.length());
 				//corte de potenciais ' ' ou '|' (últimos caracteres)
 				found = found.substring(0, found.length()-1);
 				//System.out.println(found);
@@ -161,17 +171,16 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 				boolean flag = false;
 
 				// procura nas chaves do hash
-				for (TweetKey tk : profileMap.keySet()) {
+				for (TweetKey tk : hashtagMap.keySet()) {
 
 					// achou uma chave onde bate o texto lido
 					if (tk.getTexto().equals(perfil)) {
 						if (tk.getHora() == hora) {
 							// pega a tweet key e sobe o contador
-							profileMap.replace(tk, profileMap.get(tk) + 1);
+							hashtagMap.replace(tk, hashtagMap.get(tk) + 1);
 							flag = true;
 							break;
 						}
-
 					}
 				}
 				// flag ainda é falsa (não há esse tweet para a hora lida)
@@ -179,17 +188,17 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 					// pega esses atributos, instancia a tk
 					TweetKey tk = new TweetKey(hora, perfil);
 					// e faz o put da primeira ocorrência
-					profileMap.put(tk, 1);
+					hashtagMap.put(tk, 1);
 				}
 			}
 		}
 		TweetKey tkAux;
-		for (TweetKey tk : profileMap.keySet()) {
-			array.add(tkAux = new TweetKey(tk.getTexto(), profileMap.get(tk)));
+		for (TweetKey tk : hashtagMap.keySet()) {
+			array.add(tkAux = new TweetKey(tk.getTexto(), hashtagMap.get(tk)));
 		}
 
 		Collections.sort(array, (TweetKey tk1, TweetKey tk2) -> tk1.getReps().compareTo(tk2.getReps()));
-		System.out.println("--TOP PROFILES--");
+		System.out.println("--TOP HASHTAGS--");
 		for (int i = array.size() - 1; i >= 0; i--) {
 			System.out.println("(" + array.get(i).getReps() + ") " + array.get(i).getTexto());
 		}
