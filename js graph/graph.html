@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<title>Visualização da Coleta</title>
+	<link rel="stylesheet" type="text/css" href="c3.css"/>
+	<link rel="stylesheet" type="text/css" href="default.css">
+	<script type="text/javascript" src="d3.js"></script>
+	<script type="text/javascript" src="c3.js"></script>
+</head>
+    
+<body>
+  	<img src="blank_space.png" alt="davint" height="300" align="right">
+    <div id="chart"></div>
+  	<img src="davint.jpg" alt="davint" height="300" align="right">
+  
+    <div id="retweets" class="relative1">
+	  <h3> 
+		  Tweets mais retuitados
+	  </h3> 
+	  <b>
+		  <rt id="retweetsROW1" text=""> </rt> <br>
+		  <rt id="retweetsROW2" text=""> </rt> <br>
+		  <rt id="retweetsROW3" text=""> </rt> <br>
+		  <rt id="retweetsROW4" text=""> </rt> <br>
+		  <rt id="retweetsROW5" text=""> </rt> <br>
+	  </b>	
+    </div>
+		
+    <div id="hashtags" class="relative1" float="left">
+    	<h3> 
+		  Hashtags populares
+	  	</h3> 
+	  	<b>
+		  <ht id="hashtagsROW1" text="" > </ht>  <br>
+		  <ht id="hashtagsROW2" text="" > </ht>  <br>
+		  <ht id="hashtagsROW3" text="" > </ht>  <br>
+		  <ht id="hashtagsROW4" text="" > </ht>  <br>
+		  <ht id="hashtagsROW5" text="" > </ht>  <br>
+        </b>
+    </div>
+		
+	<div id="perfis" class="relative1" float="left">
+        <h3> 
+		  Perfis em alta
+	  	</h3> 
+	  	<b>
+		  <ht id="perfisROW1" text="" > </ht>  <br>
+		  <ht id="perfisROW2" text="" > </ht>  <br>
+		  <ht id="perfisROW3" text="" > </ht>  <br>
+		  <ht id="perfisROW4" text="" > </ht>  <br>
+		  <ht id="perfisROW5" text="" > </ht>  <br>
+        </b>
+    </div>
+		
+    <script> 
+
+      var perfis = [
+          [//hour0
+              '@alessandromolon','@jornaloglobo','@midianinja','@marcelofreixo','@micheltemer'  
+          ],[//hour1
+              '@midianinja','@marcelofreixo','@g1','@jornaloglobo','@alessandromolon'
+          ],[//hour2
+              '@midianinja','@marcelofreixo','@jornaloglobo','@ptbrasil','@g1'
+          ],[//hour3
+              '@midianinja','@macairamanu','@diimabr','@jornaloglobo','@bts_twt'
+          ],[//hour4
+              '@midianinja','@macairamanu','@diimabr','@rodrigo_moller_','@marcelofreixo'
+          ],[//hour5
+              '@midianinja','@guilhermeboulos','@marcelofreixo','@jimincyphers','@amorimvivian_'
+          ],[//hour6
+              '@midianinja','@marcelofreixo','@guilhermeboulos','@alessandromolon','@rodrigo_moller_'
+          ],[//hour7
+             '@ajulysantos','@midianinja','@vanessasenadora','@marcelofreixo','@jornaloglobo' 
+          ],[//hour8
+              '@midianinja','@ajulysantos','@g1','@jornaloglobo','@homemdebem'
+          ],[//hour9
+              '@ajulysantos','@midianinja','@jornaloglobo','@jornaldaglobo','@alessandromolon'
+          ],[//hour10
+              '@g1','@jornaloglobo','@macairamanu','@midianinja','@ajulysantos'
+          ],[//hour11
+              '@g1','@momentsbrasil','@jornaloglobo','@macairamanu','@midianinja'
+          ],[//hour12
+              '@g1','@midianinja','@sandraselmadere','@momentsbrasil','@anapaulavolei'
+          ],[//hour13
+              '@gduvivier','@g1','@midianinja','@macairamanu','@diimabr'
+          ],[//hour14
+              '@gduvivier','@g1','@midianinja','@macairamanu','@ajulysantos'
+          ],[//hour15
+              '@g1','@gduvivier','@anapaulavolei','@stephanifarias_','@midianinja'
+          ],[//hour16
+              '@g1','@jornaloglobo','@macairamanu','@stephanifarias_','@gduvivier'
+          ],[//hour17
+              '@g1','@macairamanu','@chartssg','@jornaloglobo','@midianinja'
+          ],[//hour18
+              '@g1','@globonews','@jornaloglobo','@revistaistoe','@midianinja'
+          ],[//hour19
+              '@jornaloglobo','@blogdonoblat','@marcelofreixo','@g1','@leandraleal'
+          ],[//hour20
+              '@g1','@marcelofreixo','@micheltemer','@jornaloglobo','@isaacnervoso'
+          ],[//hour21
+              '@midianinja','@marcelofreixo','@globonews','@micheltemer','@guilhermeboulos'
+          ],[//hour22
+              '@midianinja','@g1','@micheltemer','@psoloficial','@bts_twt'
+          ],[//hour23
+              '@midianinja','@brasil_de_fato','@g1','@bchartsnet','@gurovitz'
+          ],
+	  ]
+            
+	  var retweets = [
+		  [//0 20h
+			  "2464: michel temer: \"não comprei o silencio de ninguém\" https://t.co/sqVPCznmAs",
+			  "1469: tira a dilma tira o cunha tira o temer tira o aecio tira casaco bota casaco tira casaco bota casaco tira casaco bota casaco",
+			  "1321: A situação do Temer é tão fudida q ele não pode nem botar a culpa na esposa. Ela tá viva.",
+			  "1039: EU TO BERRANDO COM ESSE VÍDEO DO MICHEL TEMER LADRÃO DA VILA SOCORRO https://t.co/FSRfybMVFS",
+			  "974: Doria se diz \"perplexo\" com a situação. Pudera. Até ontem era grande aliado de Temer e declarava sua confiança incondicional em Aecio."
+		  ],
+		  [//1 21h
+		 	  "3955: FUI PRA RUA PEDIR A RENÚNCIA DO TEMER: VI BANDERA DE CUBA, UNIÃO SOVIÉTICA, CAMISA DO CHÊ GUEVARA E GRITO DE APOIO AO LULA. VOLTEI PRA CASA.",
+			  "3546: No meio desse turbilhão de #ForaTemer #ACasaCaiu fica aqui a bola dentro que o Governo de Minas deu ontem no dia de… https://t.co/aqxBgDWrhC",
+			  "1970: quarta-feira temer desmascarado quinta o que nóis queria? https://t.co/MMMUjHqu9z",
+			  "1450: áudio de 38 minutos por isso que ninguém gosta do temer",
+			  "1287: MICHEL TEMER: \"PRESIDENTE GRANDE NÃO CAI\" https://t.co/ThDenc8EtL"
+		  ],
+		  [//2 22h
+			  "1645: EXCLUSIVO: JBS mantinha conta na Suíça com R$ 300 milhões em propina do PT; saldo era gerado por vantagens ilegais da empresa no BNDES.",
+			  "1598: Exclusivo: JBS mantinha conta na Suíça com R$ 300 milhões em propina do PT | reportagem de @diegoescosteguy https://t.co/0QGj0e6tKU",
+			  "1318: JBS: R$ 300 MILHÕES NA SUÍÇA PARA LULA &gt; https://t.co/LeSTj6uzhO https://t.co/YGJ3MxF0O1",
+			  "1273: Única chance do Temer não cair é pegar o São Paulo no mata-mata",
+			  "1080: ITunes BR ?? #1. Michel Temer - Delação (feat. Joesley) (+1) #2. Aécio Neves - 2kk Magic in the Air (-1) https://t.co/CeJ2stsZOR"
+		  ],
+		  [//3 23h
+		 	  "4732: quando vai sair no spotify o áudio da conversa do temer",
+			  "3145: JBS depositou 300 milhões na Suíça pro Lula e Dilma pediu 30 milhões Cadê a galera de esquerda que estava ontem en… https://t.co/TbGuVCFdmk",
+			  "2257: Resumo da delação... Aecio R$ 2 milhões - cadeia Temer R$ 2 milhões - impeachment  Lula R$ 300 milhões - Gópi, globo golpista, mentira...",
+			  "1823: Se há alguns anos nos falassem que Wesley e Joesley seriam nomes famosos no Brasil, diríamos que o Safadão se juntaria a um primo pra cantar",
+			  "1214: No blog do Estadão, agorinha: JBS implode também Lula, Dilma, Renan e Serra. E tem nomes novos. https://t.co/ZniboqfdCl"
+		  ],
+		  [//4 00h
+			  "2230: Quer dizer que Temer disse no áudio que tem 2 Ministros do STF? Não consigo imaginar quais. https://t.co/XPRXVPi82o",
+			  "1365: Entra Lula sai Lula entra Dilma sai Dilma entra Temer sai Temer põe casaco tira casaco...",
+			  "1151: é foda gerar provas contra o temer porque ele fala baixo, não aparece em espelhos, não pode sair durante o dia, realmente exige esforço",
+			  "1033: Gostaria muito de saber se esse pessoal da JBS devolveu os bilhões que tomou do BNDES. Penso que essa informação precisa ser fornecida.",
+			  "1010: imagina a polícia indo prender temer mas a algema escorrega nas mãozinha"
+		  ],
+		  [//5 01h
+		      "2168: gente que educado o temer https://t.co/7iRzFSrYVm",
+			  "681: Oi, é o Brasil ao vivo e em miséria demorou mas sua hora chegou Fora temer, essa é sua fita https://t.co/aAygSCXqwC",
+			  "625: Dilma saiu, Temer saindo, e o nosso beijo sai quando?",
+			  "625: A imprensa está voltando a estampar o Lula na capa de seus sites, e vai tirando Temer e Aécio do foco. Os cheques estão começando a cair.",
+			  "527: Temer renuncia,governo provisório,diretas gerais. Projeto de transição anti cíclico. Referendo revogatorio de todas as medidas temerarias"
+	      ],
+		  [//6 02h
+	          "667: a lucy falando \"fora temer\" AGORA ELE RENUNCIA  https://t.co/rQlBh2YLAj",
+			  "623: JBS: amanhã é dia de Lula, Dilma, Renan e Serra https://t.co/ZojDUw7Rde",
+			  "442: Milhares nas ruas do Rio de Janeiro pelas #DiretasJá e #ForaTemer Vídeo: Antonio Azambuja https://t.co/j3iBU1jBCV",
+			  "409: As gravações da JBS revelam o português primoroso de Aécio. Não vai ter problema de comunicação com o PCC. Fala a mesma língua.",
+			  "368: fazendo memes calçando kenner xingando temer"
+		  ],
+		  [//7 03h
+			  "1117: Ganho da JBS com compra de dólares é mais que suficiente para pagar multa de acordo https://t.co/7QjqcLrc3p",
+			  "327: Que horas vão mostrar o Temer comprando o silêncio do Eduardo Cunha?",
+			  "303: Em marcha a ré, seguimos em frente. https://t.co/DEiG5o2mag",
+			  "244: Globo acusa JBS de tirar proveito do que a própria empresa dos Marinho fez: ser salva pelo BNDES;  https://t.co/7SgUI9zCvw via @viomundo",
+			  "170: Dilma saiu, Temer saindo, e o nosso beijo sai quando?"
+		  ],
+		  [//8 04h
+		      "151: Santayana: Direita sacrifica duas torres, Temer e Aécio, para capturar o Rei: Lula https://t.co/eUQBMn1o1k via @viomundo",
+			  "139: Temer não renunciou // Katy Perry e Nicki Minaj single novo #SwishSwish https://t.co/djv0APTfQu",
+			  "128: JBS compra dólares e lucra com escândalo. https://t.co/CD32OD9dW8",
+			  "94: Temer vendeu perdão de dívidas de bilhões… para conseguir votos para reformas anti-povo: filho da puta. https://t.co/ffCzI5syUQ",
+			  "68: Agora tá explicado o porque da JBS conseguir empréstimos de Bilhões no BNDES, parte era repassado aos políticos, isso explica a facilidade!!"
+		  ],
+		  [//9 05h
+			  "191: tudo culpa do temer",
+			  "119: Pensar que nossos problemas eram pedaladas para cobrir o Fies e o MCMV. Hoje estamos a deriva com essa corja de Aecio e Temer.",
+			  "78: Aposto que esse bug no twitter é coisa do temer",
+			  "73: Temer tá tentando derrubar o Twitter",
+			  "61: até o temer tá caindo, só falta você cai na minha loka."
+		  ],
+		  [//10 06h
+			  "604: Houve uma baita irresponsabilidade da mídia e da justiça com o vazamento precipitado das fitas. Lucrou a JBS especulando em dólar.",
+			  "460: O Joesley, antes de divulgar a fita com o Temer, comprou milhões de dólares no mercado. Faturou alto em dólar e berrubou a Bolsa.",
+			  "349: Ouvi quatr vezes a fita do Joesley com o Temer. Não há nada contra Temer.",
+			  "114: O Jornal Nacional disse bem sobre as gravações a respeito de Temer: \" a montanha pariu um rato\" .",
+			  "83: Pedaladas e pedalinhos: “Crimes” da esquerda. Chantagem e ameaças de morte: Crimes cometidos para tirar a esquerda… https://t.co/bTuh8wkrLa"
+		  ],
+		  [//11 07h
+			  "438: Isoladamente, a notícia extraída de um inquérito criminal e veiculada há poucas semanas, de que o sr Michel Temer usou",
+			  "94: Janot pede para STF transferir Cunha para presídio de segurança máxima. https://t.co/L2xCSpjsaq",
+			  "60: Temer virou Collor: fatal, mais que a JBS, é a Globo - https://t.co/IsiNQsjAAu https://t.co/NKy8CBNuFQ",
+			  "43: Movimentos e centrais trocam o \"Fora, Temer\" pelo \"Diretas Já\" e já ameaçam um \"Fora, Maia\" https://t.co/rh8rwi1hRi",
+			  "29: Para analista, nenhum representante do Congresso teria apoio para conduzir país no caso de queda de Temer… https://t.co/uxf9JBV9yy"
+		  ],
+		  [//12 08h
+			  "8843: Não há outra saída: os brasileiros devem se mobilizar, ir para as ruas e reivindicar com força:  a renúncia imediata de Michel Temer.",
+			  "809: Agora vieram a público as estarrecedoras revelações do sr Joesley Batista sobre o mesmo personagem, Temer. São fatos gravíssimos.",
+			  "758: Lendo atentamente nossos jornais, percebo que o senhor Joesley Batista, montou um grande ataque especulativo contra o Tesouro Nacional.",
+			  "154: .⚡️ @joaquimboficial: Brasileiros devem ir para as ruas e reivindicar com força a renúncia de Temer. https://t.co/EgI9sIuAzz",
+			  "142: 1. Em gravação, Joesley diz a Temer que está segurando dois juízes e que tem pessoa dentro da força tarefa que passa informações"
+		  ],
+		  [//13 09h
+			  "617: Contra Lula e Dilma, tickets de pedágio e rascunho de email são provas. Contra temer e Aécio, áudios nao são suficientes para derruba-los",
+			  "597: Ouvir o áudio e dizer que não há provas contra Temer diz mais sobre você e seus valores do que sobre o Temer. Bom dia, Sucupira.",
+			  "556: Procurador comprado pela JBS chama-se Ângelo Goulart, tá preso, agora, e os juízes? Quais os nomes dos juízes? Chega de blindar o judiciário",
+			  "314: Eu espero que o Temer insista em permanecer, eu quero às ruas insufladas e o povo ocupando tudo. Vamos pra cima da canalha e diretas já!",
+			  "253: O que esse áudio tem? Tem tráfico de influência tem? Tem! Tem sujeira do judiciário tem? Tem! Tem provas para prender Temer como ninguém."
+		  ],
+		  [//14 10h
+			  "752: Um áudio no qual Temer escuta todo tipo de confissão e concorda é \"inconclusivo\", mas um documento em branco é prova contra Lula. #jornalixo",
+			  "544: Algum jornalista aí de Brasília, por favor, faz uma petição simples, solicitando, com base na Lei 12.527/11, dados dos empréstimos à JBS.",
+			  "511: JBS: hoje é dia de Lula, Dilma, Renan e Serra. Bom dia! https://t.co/V1IRzeu5B1 https://t.co/HtDyWfj6F7",
+			  "437: Presidente sem votos, Michel Temer agora quer ser presidente sem governo. Sua última arma é o terrorismo econômico https://t.co/ICJjOe3QXj",
+			  "408: Cadê o furor investigativo de pedalinho do bravo jornalismo? JBS comprou  2 juízes e um procurador (ótimo, diz Te… https://t.co/KeX9QM8OxM"
+		  ],
+		  [//15 11h
+			  "606: Temer querendo ficar no poder. https://t.co/s0Y7MByxpa",
+		  	  "489: Joaquim Barbosa: Brasileiros devem se mobilizar e reivindicar renúncia de Temer https://t.co/PssoDXqenl https://t.co/d3TEzogCis",
+			  "456: Tenha amigos que, em caso de assassinato, te ajudem a esconder o corpo, como a Catanhêde faz com o Temer. https://t.co/dhuoSGTUJ7",
+			  "426: Mais cedo ou mais tarde, de uma forma ou outra,Temer vai ser afastado. Melhor que seja rapidamente com eleições diretas e gerais . Claro ?",
+			  "384: Bom dia! Primeiramente, FORA TEMER!"
+		  ],
+		  [//16 12h
+			  "948: Bomba: Anexo 9 da delação da JBS acusa diretamente @MichelTemer de pedir R$ 3 milhões em propina em 2010: ? https://t.co/DpBJJ360TD",
+			  "674: Cantou a pedra dos juros pro Friboyzinho, pediu p/ manter a suruba c/ o Cunha, vibrou c/ a compra d um procurador... Inconclusivo? Oi!",
+			  "530: Em delação, Joesley cita pedidos de propina de Temer desde 2010 https://t.co/6rVIb0Q7tw https://t.co/w7kTcCFDci",
+			  "450: O surgimento de provas que mostram o quão sujo e corrupto é Temer tornam a situação do presidente insustentável.… https://t.co/HqAOGYT6V7",
+			  "358: @MichelTemer Gravíssimo: em meio ao impeachment de Dilma, Temer teria pedido a JB R$ 300 mil porque estava sendo ch… https://t.co/q5vEMGrZVB"
+		  ],
+		  [//17 13h
+			  "1236: Dono da JBS investiu pesado no mercado de câmbio no dia que vazou o áudio, e ganhou uma fortuna na crise de ontem. Isso é crime financeiro!",
+			  "1144: Força guerreiros https://t.co/IJaWq5FFBe",
+			  "843: pode cair temer pode cair aercio pode cair whatsapp  pode cair facebook pode cair instagram SÓ NÃO PODE CAIR O TWITTER SE N EU FAÇO PANELAÇO",
+			  "432: Temer renunciando ao som de Sweet Dreams https://t.co/ymXK09ssvH",
+			  "345: Exclusivo: JEC Cardozo no anexo 32 da delação da JBS &gt; https://t.co/ieCZ1ePaux https://t.co/Zrh3ZDCprF"
+		  ],
+		  [//18 14h
+			  "2285: EXCLUSIVO: JOESLEY COMPROU DEPUTADOS A PEDIDO DO PT PARA EVITAR IMPEACHMENT DE DILMA. (De quem foi o golpe mesmo?)… https://t.co/6OvS85VD9Y",
+			  "734: Enquanto irmãos JBS ganhavam milhões no mercado, a esquerda estava nas ruas quebrando tudo e surfando na crise. Só os brasileiros perderam.",
+			  "674: Exclusivo: JBS pagava mensalinho de 300 mil ao petista Fernando Pimentel &gt; https://t.co/tMZZkJehmA https://t.co/IKEroSVt2E",
+			  "584: Com ou sem Temer Meirelles deixa claro que ele e os bancos continuam mandando no Brasil. Fora Meirelles!",
+			  "403: EXCLUSIVO: JOESLEY COMPROU DEPUTADOS A PEDIDO DO PT PARA EVITAR IMPEACHMENT DE DILMA https://t.co/ra5lkaM3go"
+		  ],
+		  [//19 15h
+			  "1591: Obrigado, PT, por ter legitimado a delação da JBS esperneando contra Aécio e Temer. Agora aguenta. https://t.co/D7yBSDeRJe",
+			  "1480: Não vai ter golpe e golpistas não passarão porque vamos comprar os deputados.  P.s. Essa parte da delação vale?! https://t.co/tyoMXzA5gW",
+			  "1302: EXCLUSIVO: EM TROCA DE CRÉDITOS DO BNDES, GUIDO COBRAVA DA JBS PROPINA PARA LULA E DILMA &gt; https://t.co/wdEHjsU3A0 https://t.co/rRMICnqIAc",
+			  "964: EXCLUSIVO: JOESLEY, DA JBS, COMPROU DEPUTADOS A PEDIDO DO PT PARA EVITAR IMPEACHMENT DE DILMA &gt;… https://t.co/f2ylGcqtS0",
+			  "665: OFICIAL: O presidente Temer, Aécio e Rocha Loures são investigados por corrupção passiva, organização criminosa  e… https://t.co/udDis6NYBH"
+		  ],
+		  [//20 16h
+			  "13285: Desejo a todos uma boa tarde e um pouco da autoestima do Temer https://t.co/5cV8ISiVNW",
+			  "3033: Lula e Dilma tinham US$ 150 milhões em ‘conta-corrente’ de propina da JBS, diz Joesley https://t.co/iTcVJEohim https://t.co/YALI9BxxtA",
+			  "1935: eu sou fora temer https://t.co/PoUg8Qza8v",
+			  "1881: temer tem cara de quem pisa no rabo dos bichinhos e não pede desculpa",
+			  "873: Pra mim é cadeia nos três. Mas curiosa análise... https://t.co/wsUosdcXNW"
+		  ],
+		  [//21 17h
+			  "2151: PF interceptou conversas telefônicas de Temer e de Gilmar Mendes https://t.co/SnufzV24Tb https://t.co/DsqZpqgc9t",
+			  "1988: É assim q funciona o cérebro de um petista: - Joesley entrega Temer e Aécio: VERDADE! - Joesley entrega Lula e Dilma: É MENTIRA! MENTIROSO!",
+			  "1117: Lula e Dilma receberam até US$ 150 milhões em propinas, afirma delação da JBS. https://t.co/tLpFp7ilWj",
+			  "1076: Temer e Aécio agiam juntos para impedir avanço da Lava Jato, diz Janot https://t.co/a4oQnwBdB8",
+			  "899: Janot usa livro de Gilmar Mendes e Alexandre de Moraes para pedir inquérito de Temer. Pouco irônico ele? https://t.co/5o8EOYsiZ8"
+		  ],
+		  [//22 18h
+			  "1700: Vendo as juiza inimiga de Brasilia tudo lacrando nas manchete da JBS e a gente aqui sentado c o triplec na mão https://t.co/8PcHms2LhE",
+			  "947: Adorei essa nova delação contra Lula e Dilma. O corruptor abre contas no próprio nome e ele mesmo movimenta. Daora demais esse modelo!",
+			  "943: eu não acredito que o joesley comprou o estado multiplicou o investimento entregou todo mundo e saiu com imunidade isso que é gênio do crime",
+			  "893: O q os companheiros Janot e Fachin acharam suficiente para investigar Temer é um soluço perto do q acharam insuficiente p/ investigar Dilma.",
+			  "786: A Friboi pagou 30 milhões em propina para eleger Cunha presidente da Câmara e destruir com o Brasil! Entenda:… https://t.co/9dEgy2Zj6W"
+		  ],
+		  [//23 19h
+		  	  "2612: A conversa entre Gilmar Mendes e Aecio Neves foi no dia 26 de abril. Por curiosidade procurem Gilmar Mendes Aecio N… https://t.co/LGlZgpzesZ",
+			  "1417: Ontem Aécio e Temer, hj Lula e Dilma, se vc ficou feliz nos dois dias vc é brasileiro se ficou triste em um deles é só um militante inútil!",
+			  "1314: MALDITO JOESLEY, TAVA FALANDO A VERDADE E AGORA COMEÇOU A MENTIR... #VAITERLUTA LULA GUERREIRO DO POVO BRASILEIRO… https://t.co/0gMv034udo",
+			  "691: \"Na eleição, eu só vi 2 caras roubar deles mesmos: o Kassab e o Temer\", diz homem do caixa 2 da JBS ?… https://t.co/tCa1i9Sl43",
+			  "558: Alguém precisa desenvolver um aplicativo pra gente consultar pelo CPF se já recebeu propina da JBS ou não"
+		  ]
+	  ]
+				  		
+      var hashtags = [ //0,1,2,3,4
+		  ["#foratemer:290", "#diretasja:131", "#temer:103", "#jornalnacional:65", "#voltadilma:44"],				//0
+		  ["#foratemer:441", "#diretasja:412", "#jornalnacional:149", "#temer:89", "#temeracasacaiu:44"],			//1
+		  ["#foratemer:701", "#diretasja:608", "#temer:86", "#btsbbmas:63", "#jornalnacional:50"],					//2
+		  ["#diretasja:784", "#foratemer:685", "#temer:99", "#btsbbmas:69", "#temeracasacaiu:39"],					//3
+		  ["#diretasja:1125", "#foratemer:912", "#temer:135", "#btsbbmas:100", "#temeracasacaiu:64"],				//4
+		  ["#diretasja:1303", "#foratemer:1088", "#btsbbmas:311", "#temer:123", "#arepublicagrampeada:56"],			//5
+		  ["#diretasja:1056", "#foratemer:735", "#btsbbmas:213", "#temer:93", "#lavajato:50"],						//6
+		  ["#diretasja:590", "#foratemer:398", "#btsbbmas:81", "#temer:49", "#renunciatemer:36"],				    //7
+		  ["#diretasja:354", "#foratemer:276", "#temer:86", "#arepublicagrampeada:39", "#jornaldarecord:37"],		//8
+		  ["#diretasja:366", "#foratemer:364", "#btsbbmas:121", "#temer:68", "#arepublicagrampeada:35"],			//9
+		  ["#diretasja:706", "#foratemer:645", "#btsbbmas:317", "#temer:218", "#politicag1:180"], 					//10
+		  ["#foratemer:551", "#diretasja:511", "#btsbbmas:156", "#politicag1:132", "#lavajato:103"],				//11
+		  ["#foratemer:615", "#diretasja:523", "#lavajatoeuapoio:123", "#politicag1:117", "#lavajato:95"],			//12
+		  ["#diretasja:532", "#foratemer:453", "#politicag1:97", "#lavajatoeuapoio:66", "#btsbbmas:65"],			//13
+		  ["#foratemer:358", "#diretasja:357", "#temer:51", "#brasiliaofcards:41", "#btsbbmas:40"],					//14
+		  ["#foratemer:267", "#diretasja:242", "#brasiliaofcards:119", "#temer:46", "#politicag1:32"],				//15
+		  ["#foratemer:440", "#diretasja:339", "#politicag1:189", "#brasiliaofcards:184", "#lavajato:117"],			//16
+		  ["#foratemer:376", "#diretasja:336", "#brasiliaofcards:167", "#temer:64", "#btsbbmas:56"],				//17
+		  ["#foratemer:247", "#diretasja:217", "#politicag1:173", "#brasiliaofcards:149", "#vaiterluta:99"],		//18
+		  ["#diretasja:475", "#foratemer:437", "#brasiliaofcards:299", "#republicagrampeada:265", "#temer:69"],		//19
+		  ["#foratemer:377", "#brasiliaofcards:193", "#diretasja:186", "#foramaia:114", "#temer:41"],				//20
+		  ["#foratemer:415", "#diretasja:314", "#brasiliaofcards:215", "#politicag1:96", "#querovotar:60"],			//21
+		  ["#foratemer:169", "#diretasja:158", "#querovotar:49", "#brasiliaofcards:44", "#politicag1:17"],			//22
+		  ["#foratemer:788", "#diretasja:759", "#brasiliaofcards:140", "#querovotar:88", "#temer:82"]				//23
+	  ];
+		  
+		//console.log(hashtags[6]);
+      var chart = c3.generate({
+    	data: {
+			columns: [
+			  ['Constante', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+			  ['Exponencial', 1, 2, 4, 8, 16, 32, 64, 10000, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608]
+			],
+			type: 'area',
+				  "selection":{
+						"grouped": true,
+						"enabled": true,
+						"multiple": false,
+						"draggable": false
+				  },
+				  axis:{ 
+			  			x:{
+							type: 'category', show: false
+						},
+                  },
+                  onmouseover: function (d) {
+                        var value = d.index;
+                        d3.select("#hashtagsROW1").text(hashtags[value][0]);
+                        d3.select("#hashtagsROW2").text(hashtags[value][1]);
+                        d3.select("#hashtagsROW3").text(hashtags[value][2]);
+                        d3.select("#hashtagsROW4").text(hashtags[value][3]);
+                        d3.select("#hashtagsROW5").text(hashtags[value][4]);
+                     	
+						d3.select("#retweetsROW1").text(retweets[value][0]);
+                        d3.select("#retweetsROW2").text(retweets[value][1]);
+                        d3.select("#retweetsROW3").text(retweets[value][2]);
+                        d3.select("#retweetsROW4").text(retweets[value][3]);
+                        d3.select("#retweetsROW5").text(retweets[value][4]);	
+                        
+						d3.select("#perfisROW1").text(perfis[value][0]);
+				     	d3.select("#perfisROW2").text(perfis[value][1]);
+				     	d3.select("#perfisROW3").text(perfis[value][2]);
+				     	d3.select("#perfisROW4").text(perfis[value][3]);
+				     	d3.select("#perfisROW5").text(perfis[value][4]);  
+                  }              
+        }            
+      });
+	
+    </script>
+    
+</body>
+
+</html>
