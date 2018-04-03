@@ -17,9 +17,9 @@ import java.io.File;
 public class App {
 	
 	private static String ENCODING = "UTF-8";  //ISO-8859-1 ou UTF-8
-	//private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\testing\\inicial.txt";
+	//private static String ARQUIVO_A_SER_LIDO = "C:\\Users\\eduardo\\Desktop\\samples\\tweets.txt";
 	//se for usado em Linux:
-	private static String ARQUIVO_A_SER_LIDO = "//home//jmfantin//Desktop//testing//fabric.txt";
+	private static String ARQUIVO_A_SER_LIDO = "//home//jmfantin//Desktop//samples//tweets.txt";
 	private static boolean PRESERVAR_HASHTAGS = true;
 	private static Integer NUMERO_DE_PALAVRAS = 600;
 	private static boolean ORDEM_ASCENDENTE = false;
