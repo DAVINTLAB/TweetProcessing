@@ -1,0 +1,27 @@
+|^2017:10:02 17:00:00|^|^tweet sample 1|^
+|^2017:10:02 17:02:00|^|^tweet sample 1|^
+|^2017:10:02 17:30:00|^|^isso é um tweet #solidario @jmfantin MUITO LEGAL mesmo|^
+|^2017:10:02 17:05:00|^|^isso é um tweet #HashtagQualquer desgraçado|^
+|^2017:10:02 17:10:00|^|^i#HashtagNoMeio sso é um tweet 
+desgraçado
+para
+cacete|^
+|^2017:10:02 17:20:00|^|^tweet sample 1|^
+|^2017:10:02 17:30:00|^|^isso é um tweet AMORZINHO@umperfilqualquer|^
+|^2017:10:02 17:30:00|^|^tweet sample 1|^
+|^2017:10:02 17:40:00|^|^isso é um tweet MUITO LEGAL mesmo|^
+|^2017:10:02 18:00:00|^|^isso é um #HashtagTeste @umperfilqualquer teste #HashtagQualquer das seis|^
+|^2017:10:02 18:00:00|^|^TWEET DO PARADOXO|^
+|^2017:10:02 18:00:00|^|^tweet sample 1 das seis|^
+|^2017:10:02 18:00:00|^|^tweet sample 1 das seis @umperfilqualquer|^
+|^2017:10:02 18:00:00|^|^TWEET DO PARADOXO|^
+|^2017:10:02 18:00:00|^|^isso é um tweet #HashtagQualquer @perfilzaço das seis @maisumperfil |^
+|^2017:10:02 18:00:00|^|^TWEET DO PARADOXO|^
+|^2017:10:02 18:00:00|^|^ISSO #HashtagNoMeio NEM É UM TWEET|^
+|^2017:10:02 18:00:00|^|^TWEET DO PARADOXO|^
+|^2017:10:02 18:00:00|^|^tudo que vivemos é uma mentira? @jmfantin|^
+
+|^2017:10:02 18:00:00|^|^in the dark|^
+|^2017:10:02 18:00:00|^|^in the light|^
+|^2017:10:02 18:00:00|^|^nothing left|^
+|^2017:10:02 18:00:00|^|^nothing right|^
