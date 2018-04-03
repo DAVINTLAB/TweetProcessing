@@ -205,7 +205,31 @@ public class GeradorC3 { //makes lists of tweets, hashtags and profiles based on
 		reader.close();
 	}
 
-	public void imprimeQuantidades(){
+	public void imprimeQuantidades() throws IOException{
+		int[] vetorQuantidades = new int[24];
 		
+		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+		String linhaAtual;
+		while((linhaAtual = reader.readLine()) != null) { //enquanto houver mais uma linha
+			if(linhaAtual.length() > 6 && linhaAtual.substring(0,5).equals("|^201")){
+				
+				Integer hora = Integer.parseInt(linhaAtual.substring(13,15));
+				vetorQuantidades[hora]++;
+			}
+		}
+		reader.close();
+		System.out.println("--TWEETS POR HORA--");
+		for(int i = 0; i < vetorQuantidades.length; i++){
+			System.out.println("Hora " + i + ": " + vetorQuantidades[i]);
+		}
+		System.out.print("\n['Colunas para o grafico', ");
+		for(int i = 0; i < vetorQuantidades.length; i++){
+			if(i==vetorQuantidades.length-1){
+				System.out.print(vetorQuantidades[i]);
+				break;
+			}
+			System.out.print(vetorQuantidades[i] + ", ");
+		}
+		System.out.print("]");
 	}
 }

@@ -164,9 +164,11 @@ public class App {
 	public static void geraInputs() throws IOException{
 		File inFile = new File(ARQUIVO_A_SER_LIDO);
 		GeradorC3 graphBuilder = new GeradorC3(inFile); 
+		System.out.println("Refinando...\n");
 		graphBuilder.rankingTweets();
 		graphBuilder.rankingPerfis();
 		graphBuilder.rankingHashtags();
+		graphBuilder.imprimeQuantidades();
 	}
 	
 	public static String limpaLinhas(String linha){
